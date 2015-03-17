@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- use bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<body ng-app="app">
+
+    <script>
+        // Эй энгулар, мне нужен модуль app без зависимостей
+        var app = angular.module('app', []);
+        // В модуле app создай контроллер
+        app.controller(
+            // Название контроллера
+            'DogCtrl',
+            // Функция-конструктор, в которую передается новый (а значит, пустой) объект.
+            function () {
+                this.name = 'Lessie';
+            }
+        );
+        // При каждом обращении к контроллеру <... ng-controller="DogCtrl as dog" ...>
+        // Создается новый объект с именем 'dog' класса 'DogCtrl':
+        // var dog = new DogCtrl();
+    </script>
+
+    <div ng-controller="DogCtrl as dog">
+        <!-- Здесь доступен объект 'dog' класса 'DogCtrl' -->
+        <h1>
+            A Dog named {{ dog.name }}
+            <!-- Всё, что обьявлено в контроллере DogCtrl,
+            доступно здесь и во всех внутренних HTML-элементах -->
+        </h1>
+    </div>
+
+    <!-- Здесь ничего не выведет. Ошибки тоже не возникнет - энгулар их "прощает" -->
+    {{ dog.name }}
+
+</body>
+</html>
