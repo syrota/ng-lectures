@@ -41,17 +41,41 @@
                     { label: 'Apple' }
                 ];
             })
+        //TODO display items count instead of repeated elements
             .controller('ShoppingCart', function () {
-
                 this.added = [];
+                this.buy = function ( item ) {
 
-                // TODO display items count instead of repeated elements
+                    // var newObj = { prod: item.label, num: 1 };
+                    // if( this.added.length !== 0 ){
+                    //     for (var i = 0; i < this.added.length; i++ ){
 
-                this.buy = function (item) {
-                    this.added.push(item.label);
-                    console.log(this.added);
-                }.bind(this)
+                    //         if( this.added[i].prod == item.label ){
+                    //               this.added[i].num++;
+                    //         } else {
+                    //               this.added.push(newObj);
+                    //         }
 
+                    //     }
+                    // } else {
+                    //     this.added.push(newObj);
+                    // }
+
+                   var isset = false;
+                   for (var i in this.added ){
+                       if( this.added[i].prod == item.label ){
+                           this.added[i].num++;
+                           isset = true;
+                       }
+                   }
+                   if (isset == false) {
+                       this.added.push({
+                           prod: item.label,
+                           num: 1
+                       });
+                   }
+
+                }.bind(this)            
             })
     </script>
 </body>
