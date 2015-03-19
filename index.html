@@ -7,23 +7,45 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+    <style type="text/css">
+    
+    h1, h2 {
+        display: inline-block;
+        vertical-align: top;
+        width: 400px;
+    }  
+    ul {
+        list-style: none;
+    }
+    .list {
+        display: inline-block;
+        vertical-align: top;
+        width: 400px;
+    }
+
+    </style>
+
+
 </head>
 <body ng-app="app">
 <!-- MAX's EDITs -->
 <div ng-controller="ShoppingCart as cart">
     <h1>Product</h1>
-    <div ng-controller="Product as products">
-
-        <li ng-repeat="brand in products.brands">
-            {{ brand.label }}
-            <button class="btn btn-primary" ng-click="cart.buy(brand)">Buy!</button>
-        </li>
-    </div>
-
-    <h1>Shopping Cart</h1>
-    <ul>
+    <h2>Shopping Cart</h2>
+    <ul ng-controller="Product as products" class="list">
+            <li ng-repeat="brand in products.brands">
+                {{ brand.label }}
+                <button class="btn btn-primary" ng-class="dis" ng-click="cart.buy(brand)" ng-show="true">Buy!</button>
+            </li>
+    </ul>
+    <ul class="list">
         <li ng-repeat="value in cart.added track by $index">
-            {{ value }}
+            <span>{{value.prod}}</span>
+            <span>{{value.num}}</span>
+            <button ng-click="cart.addProd($index, value.prod)" >+</button>
+            <button ng-click="cart.minProd($index)" >-</button>
+            <button ng-click="cart.delProd($index)" >x</button>
         </li>
     </ul>
 </div>
@@ -46,40 +68,41 @@
                 this.added = [];
                 this.buy = function ( item ) {
 
-                    var newObj = { prod: item.label, num: 1 };
+                    var newObj = { prod: item.label, num: 1 },
+                        flag;
 
-                    // if( this.added.length !== 0 ){
+                        // this.added.push(newObj);
 
-                    //     for (var i = 0; i < this.added.length; i++ ){
+                    if( this.added.length ){
+                        flag = true;
+                        for ( var i in this.added ) {
+                            if( this.added[i].prod == item.label ) {
+                                this.added[i].num++;
+                                flag = false;
+                            }
+                        }
+                        if ( flag ) { 
+                            this.added.push(newObj); 
+                        };
+                    } else {
+                        this.added.push(newObj);
+                    }
 
-                    //         if( this.added[i].prod == item.label ){
-                    //               this.added[i].num++;
-                    //         } else {
-                    //               this.added.push(newObj);
-                    //         }
+                }.bind(this);
+                this.addProd = function ( a ) {
+                    this.added[a].num++;
+                };
+                this.minProd = function ( b ) {
+                    if ( this.added[b].num > 1 ) {
+                       this.added[b].num--   
+                    } else {
+                        this.added.splice( b, 1)
+                    }
+                };
+                this.delProd = function ( c ) {
+                    this.added.splice( c, 1);
+                };
 
-                    //     }
-                    // } else {
-                    //     this.added.push(newObj);
-                    // }
-
-                   var isset = false;
-
-                   for (var i in this.added ){
-                       if( this.added[i].prod == item.label ){
-                           this.added[i].num++;
-                           isset = true;
-                       }
-                   }
-
-                   if (isset == false) {
-                       this.added.push({
-                           prod: item.label,
-                           num: 1
-                       });
-                   }
-
-                }.bind(this)            
             })
     </script>
 </body>
