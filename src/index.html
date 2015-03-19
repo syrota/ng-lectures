@@ -9,9 +9,9 @@
     <script src="lib/angular/angular.min.js"></script>
 </head>
 <body ng-app="app">
-<div ng-controller="ShoppingCart as cart">
+<div ng-controller="ShoppingCartController as cart">
     <h1>Product</h1>
-    <div ng-controller="Product as products">
+    <div ng-controller="ProductsListController as products">
 
         <li ng-repeat="brand in products.brands">
             {{ brand.label }}
@@ -27,32 +27,9 @@
     </ul>
 </div>
 
-    <script>
+    <script src="app.module.js"></script>
+    <script src="products-list/products-list.ctrl.js"></script>
+    <script src="shopping-cart/shopping-cart.ctrl.js"></script>
 
-        // TODO add product quantity
-
-        angular.module('app', [])
-            .controller('Product', function () {
-
-                this.brands = [
-                    { label: 'Samsung' },
-                    { label: 'Sony' },
-                    { label: 'Dell' },
-                    { label: 'Apple' }
-                ];
-            })
-            .controller('ShoppingCart', function () {
-
-                this.added = [];
-
-                // TODO display items count instead of repeated elements
-
-                this.buy = function (item) {
-                    this.added.push(item.label);
-                    console.log(this.added);
-                }.bind(this)
-
-            })
-    </script>
 </body>
 </html>
