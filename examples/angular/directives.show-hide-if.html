@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <!-- use bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<body>
+
+    <script>
+        angular.module('demo', []).controller('DemoController', function () {
+            this.boundies = [
+                {
+                    completed: false,
+                    task: 'expert in JS prototypes',
+                    secret: true
+                },
+                {
+                    completed: true,
+                    task: 'learned JS objects',
+                    secret: false
+                },
+                {
+                    completed: true,
+                    task: 'familiar with JS prototypes',
+                    secret: true
+                },
+                {
+                    completed: false,
+                    task: 'learned JS arrays',
+                    secret: false
+                },
+                {
+                    completed: false,
+                    task: 'expert in JS arrays',
+                    secret: false
+                }
+            ]
+        })
+    </script>
+
+    <div class="container" ng-controller="DemoController as demo">
+
+        <h1>ng-show & ng-hide</h1>
+
+        <!--
+            Общий вид:
+
+            <tag ng-show="expression" ...> ... </tag>
+                - добавляет "display:none" если (expression != true)
+
+            <tag ng-hide="expression" ...> ... </tag>
+                - добавляет "display:none" если (expression == true)
+        -->
+
+        <h3>Completed</h3>
+        <ul class="list-unstyled">
+
+            <!-- Выводим завершенные достижения -->
+            <li ng-repeat="boundy in demo.boundies" ng-show="boundy.completed">
+                {{ boundy.task }}
+            </li>
+            <!--
+                Обратите внимание, что у <li> есть две директивы.
+
+                Поменяв их местами:
+                    <li ng-show="boundy.completed" ng-repeat="boundy in demo.boundies">
+                результат будет тот же
+
+                Для каждой директивы определен приоритет. ng-repeat отработает раньше ng-show
+
+            -->
+        </ul>
+
+        <hr/>
+
+        <h3>All public</h3>
+        <ul class="list-unstyled">
+
+            <!-- Выводим не секретные достижения -->
+            <li ng-repeat="boundy in demo.boundies" ng-hide="boundy.secret">
+                {{ boundy.task }}
+            </li>
+
+        </ul>
+
+        <hr/>
+
+        <h3>All</h3>
+        <ul class="list-unstyled">
+
+            <!-- Выводим все (кроме незавершенных секретных) достижения -->
+            <li ng-repeat="boundy in demo.boundies" ng-show="boundy.completed || !boundy.secret">
+
+                {{ boundy.task }}
+
+                <!-- добавим метку для завершенных -->
+                <span ng-show="boundy.completed" class="label label-success">done</span>
+
+                <!-- добавим метку для секретных -->
+                <span ng-show="boundy.secret" class="label label-info">secret</span>
+
+            </li>
+
+        </ul>
+
+        <hr/>
+
+        <!-- В примере выше небыло верхней золотой рамки -->
+        <style>
+            ul > li:first-child { border-top: 14px solid gold; }
+        </style>
+
+
+        <h1>ng-if</h1>
+
+        <!--
+            Общий вид:
+
+            <tag ng-if="expression" ...> ... </tag>
+                - добавляет или удаляет <tag ...> из DOM'а в зависимости от expression
+
+        -->
+
+        <ul class="list-unstyled">
+
+            <!-- ng-repeat имеет больший приоритет, чем ng-if -->
+
+            <li ng-repeat="boundy in demo.boundies" ng-if="boundy.completed || !boundy.secret">
+                {{ boundy.task }}
+                <span ng-if="boundy.completed" class="label label-success">done</span>
+                <span ng-if="boundy.secret" class="label label-info">secret</span>
+            </li>
+        </ul>
+        <!-- В примере выше есть верхняя золотая рамка -->
+
+    </div>
+
+</body>
+</html>

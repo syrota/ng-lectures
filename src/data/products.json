@@ -1,0 +1,22 @@
+[{"id":"1","name": "Fotik Super!","brand": "Samsung", "price": 300, "sale": true, "rating": 4,"imgURL":"data/png/agnes-overjoyed-icon.png"}
+,
+{"id":"2","name":"Parovarka","brand": "LG", "price": 300, "sale": true,"rating": 5,"imgURL":"data/png/evil-minion-icon.png"}
+,
+{"id":"3","name": "123 Sony","brand": "Sony","price": 400, "sale": true, "rating":11,"imgURL":"data/png/girl-minion-icon.png"}
+,
+{"id":"4","name": "UDell 777","brand": "Dell", "price":250, "sale": true, "rating": 16,"imgURL":"data/png/gru-icon.png"}
+,
+{"id":"5","name": "AppleNot","brand": "Apple", "price": 298520,"sale": true, "rating": 78,"imgURL":"data/png/despicable-me-2-Minion-icon-5.png"}
+,
+{"id":"6","name": "Camera NIcon","brand": "NIcon", "price": 298520, "sale":true, "rating": 56,"imgURL":"data/png/despicable-me-2-Minion-icon-3.png"}
+,
+{"id":"7","name":"SomeThingPicon","brand": "Picon", "price": 298520, "sale": true,"rating": 84,"imgURL":"data/png/Shy-Minion-icon.png"}
+,
+{"id":"8","name": "notNow","brand": "Samsung","price": 298520, "sale": true, "rating":57,"imgURL":"data/png/Evil-Minion-Icon-4.png"}
+,
+{"id":"9","name": "faceboockER","brand": "Samsung", "price":298520, "sale": true, "rating": 41,"imgURL":"data/png/Happy-Minion-Icon.png"}
+,
+{"id":"10","name": "real iPhone","brand": "Apple", "price": 298520,"sale": true, "rating": 99,"imgURL":"data/png/Curious-Minion-Icon-2.png"}
+,
+{"id":"11","name": "real iPad","brand": "Apple", "price": 298520, "sale":true, "rating": 70,"imgURL":"data/png/agnes-sleeping-icon.png"}]
+

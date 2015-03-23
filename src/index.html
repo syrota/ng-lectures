@@ -1,0 +1,28 @@
+<!doctype html>
+<html  ng-app="eShopApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>eShop</title>
+    <!-- use bootstrap -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="products-list/products-list.css">
+    <link rel="stylesheet" href="lib/rzslider.css">
+</head>
+<body>
+
+<div ng-view></div>
+
+<!-- Angular -->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular.min.js"></script>-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>-->
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular-route/angular-route.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="lib/rzslider.js"></script>
+
+<script src="products-list/products-list.ctrl.js"></script>
+<script src="shopping-cart/shopping-cart.ctrl.js"></script>
+<script src="products-list/productsFactory.js"></script>
+<script src="app.module.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row" ng-controller="ProductListCtrl">
+        <div class="col-xs-6">
+            <!-- Title -->
+            <h2>Products</h2>
+            <hr>
+            <div class="well well-sm">
+                <div class="btn-group-justified">
+                    <label class="btn btn-primary btn-xs" ng-model="listOrder.price" btn-checkbox
+                           ng-click="reverse=!reverse;orderByKey('price',reverse)">Order By Price
+                    <span class="glyphicon" aria-hidden="true"
+                          ng-class="{'glyphicon-chevron-down': listOrder.price, 'glyphicon-chevron-up': !listOrder.price}"></span>
+                    </label>
+                    <label class="btn btn-primary btn-xs" ng-model="listOrder.name" btn-checkbox
+                           ng-click="reverse=!reverse;orderByKey('name',reverse)">Order By Name
+                     <span class="glyphicon" aria-hidden="true"
+                           ng-class="{'glyphicon-chevron-down': listOrder.name, 'glyphicon-chevron-up': !listOrder.name}"></span>
+                    </label>
+                    <label class="btn btn-primary btn-xs" ng-model="listOrder.brand" btn-checkbox
+                           ng-click="reverse=!reverse;orderByKey('brand',reverse)">Order By Brand
+                     <span class="glyphicon" aria-hidden="true"
+                           ng-class="{'glyphicon-chevron-down': listOrder.brand, 'glyphicon-chevron-up': !listOrder.brand}"></span>
+                    </label>
+                    <label class="btn btn-primary btn-xs" ng-model="listOrder.rating" btn-checkbox
+                           ng-click="reverse=!reverse;orderByKey('rating',reverse)">Order By Rating
+                     <span class="glyphicon" aria-hidden="true"
+                           ng-class="{'glyphicon-chevron-down': listOrder.rating, 'glyphicon-chevron-up': !listOrder.rating}"></span>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item"
+                        ng-repeat="product in products | filter:{ name: searchString || '' } | onlyProductsWithinPrice:priceSlider.min:priceSlider.max"
+                        ng-if="product.sale">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">
+                                    <span class="glyphicon" aria-hidden="true"
+                                          ng-class="{'glyphicon-chevron-down': isCollapsed, 'glyphicon-chevron-up': !isCollapsed}"></span>
+                                </button>
+                                {{product.name}}
+                                <div collapse="isCollapsed">
+                                    <hr>
+                                    <div class="well well-lg">
+                                            <div class="container-fluid">
+                                                <div class="navbar-header ">
+                                                        <img alt="Product" src="{{product.imgURL}}">
+                                                </div>
+
+                                            <ul class="list-group pull-right">
+                                                <li>Brand: {{product.brand}}</li>
+                                                <li>Price: {{product.price | currency:'\u20b4' }}</li>
+                                                <li>Rating: {{product.rating}}</li>
+                                            </ul></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                            <span class="pull-right">{{ product.price  | currency:'\u20b4' }}
+                                <button class="btn btn-default btn-xs pull-right" ng-click="buy(product)">
+                                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Buy it!
+                                </button>
+                            </span>
+                                {{ product.label }}
+                                <span class="stars">{{ product.rating | stars }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-xs-6">
+            <hr>
+            <!-- Search Well -->
+            <div class="well well-lg form-group">
+                <input class="form-control" type="text" ng-model="searchString" placeholder="search"/>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="well-sm input-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger" ng-click="priceSlider.min=0;">
+                                    Min:
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" ng-model="priceSlider.min"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="well-sm input-group">
+                            <input type="text" class="form-control" ng-model="priceSlider.max"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger" ng-click="priceSlider.max=1000;">
+                                    :Max
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr>
+            <div class="well well-sm">
+                <h2>Shopping Cart</h2>
+                <span ng-hide="added.length !== 0">...nothing yet... Let's go shopping!</span>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="well well-sm" ng-repeat="value in added track by $index">
+                            <label class="control-label">{{ value.name }}</label>
+                            {{value.price | currency:'\u20b4'}}
+                                <span class="badge pull-right">
+                                             {{ value.amount }}
+                                <button class="minus_btn btn btn-danger btn-xs" ng-click="delete($index)">-
+                                </button></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="panel-info" ng-hide="added.length == 0">
+                            Total Price: <span>{{getTotal() | currency:'\u20b4'}}</span>
+                        </div>
+                        <button class="btn btn-danger" ng-hide="added.length == 0" ng-click="deleteAll()">Del All
+                        </button>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <!-- /.row -->
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; eShop 2015</p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </footer>
+</div>
+<!-- /.container -->
+
