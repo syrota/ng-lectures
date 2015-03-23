@@ -4,11 +4,17 @@
 h1 {
     margin-top: -10px!important;
 }
-
+i {
+	font-size: 12px
+}
 .container-fluid {
     margin: 30px auto;
     width: 80%;
 }
 .panel-body {
     background: #eee;
+}
+.stars {
+  font-family: 'Glyphicons Halflings';
+  color: black;
 }
