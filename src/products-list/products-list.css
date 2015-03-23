@@ -1,3 +1,14 @@
 /*
  * Набор стилей для списка товаров
  */
+h1 {
+    margin-top: -10px!important;
+}
+
+.container-fluid {
+    margin: 30px auto;
+    width: 80%;
+}
+.panel-body {
+    background: #eee;
+}

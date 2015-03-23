@@ -2,109 +2,86 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>SHOP</title>
+
     <!-- use bootstrap -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <!-- products-list -->
+    <link rel="stylesheet" href="products-list/products-list.css">
+    <!-- shopping-list -->
+    <link rel="stylesheet" href="shopping-cart/shopping-cart.css">
+
     <!-- Angular -->
     <script src="lib/angular/angular.min.js"></script>
-
-    <style type="text/css">
-    
-    h1, h2 {
-        display: inline-block;
-        vertical-align: top;
-        width: 400px;
-    }  
-    ul {
-        list-style: none;
-    }
-    .list {
-        display: inline-block;
-        vertical-align: top;
-        width: 400px;
-    }
-
-    </style>
-
+    <!-- App. Modules -->
+    <script src="app.module.js"></script>
+    <!-- Prod. Controllers -->
+    <script src="products-list/products-list.ctrl.js"></script>
+    <!-- Shop. Controllers -->
+    <script src="shopping-cart/shopping-cart.ctrl.js"></script>
 
 </head>
 <body ng-app="app">
-<!-- MAX's EDITs -->
-<div ng-controller="ShoppingCart as cart">
-    <h1>Product</h1>
-    <h2>Shopping Cart</h2>
-    <ul ng-controller="Product as products" class="list">
-            <li ng-repeat="brand in products.brands">
-                {{ brand.label }}
-                <button class="btn btn-primary" ng-class="dis" ng-click="cart.buy(brand)" ng-show="true">Buy!</button>
-            </li>
-    </ul>
-    <ul class="list">
-        <li ng-repeat="value in cart.added track by $index">
-            <span>{{value.prod}}</span>
-            <span>{{value.num}}</span>
-            <button ng-click="cart.addProd($index, value.prod)" >+</button>
-            <button ng-click="cart.minProd($index)" >-</button>
-            <button ng-click="cart.delProd($index)" >x</button>
-        </li>
-    </ul>
+
+
+
+<div class="container-fluid" ng-controller="ShoppingCart as cart">
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>PRODUCTS</h3></div>
+                <div class="panel-body">
+                    FILTERS
+                    <form class="form-inline">
+                        <input ng-model="query" type="text" placeholder="Filter by name" autofocus>
+                    </form>
+                </div>
+                <ul ng-controller="Product as products" class="list-group">
+                    <li ng-repeat="brand in products.brands | filter:query | orderBy: 'name'" class="list-group-item">
+
+
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <span class="prod-name">{{ brand.label }}</span>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <span class="prod-cost">{{ brand.cost | currency:"$" }}</span>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <button class="btn btn-primary" ng-click="cart.buy(brand)">Buy This!</button>
+                            </div>
+                        </div>
+
+
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>CHOOSEN</h3></div>
+                <ul class="list-group">
+                    <li ng-repeat="value in cart.added track by $index" class="list-group-item">
+                        <span>{{value.prod}}</span>
+                        <span>{{value.num}}</span>
+                        <button ng-click="cart.addProd($index, value.prod)" >+</button>
+                        <button ng-click="cart.minProd($index)" >-</button>
+                        <button ng-click="cart.delProd($index)" >x</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-    <script>
+<!--<div class="col-xs-6"></div>-->
+<!--<div class="col-xs-6"></div>-->
 
-        // TODO add product quantity
 
-        angular.module('app', [])
-            .controller('Product', function () {
 
-                this.brands = [
-                    { label: 'Samsung' },
-                    { label: 'Sony' },
-                    { label: 'Dell' },
-                    { label: 'Apple' }
-                ];
-            })
-        //TODO display items count instead of repeated elements
-            .controller('ShoppingCart', function () {
-                this.added = [];
-                this.buy = function ( item ) {
-
-                    var newObj = { prod: item.label, num: 1 },
-                        flag;
-
-                        // this.added.push(newObj);
-
-                    if( this.added.length ){
-                        flag = true;
-                        for ( var i in this.added ) {
-                            if( this.added[i].prod == item.label ) {
-                                this.added[i].num++;
-                                flag = false;
-                            }
-                        }
-                        if ( flag ) { 
-                            this.added.push(newObj); 
-                        };
-                    } else {
-                        this.added.push(newObj);
-                    }
-
-                }.bind(this);
-                this.addProd = function ( a ) {
-                    this.added[a].num++;
-                };
-                this.minProd = function ( b ) {
-                    if ( this.added[b].num > 1 ) {
-                       this.added[b].num--   
-                    } else {
-                        this.added.splice( b, 1)
-                    }
-                };
-                this.delProd = function ( c ) {
-                    this.added.splice( c, 1);
-                };
-
-            })
-    </script>
 </body>
 </html>
