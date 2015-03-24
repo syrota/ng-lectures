@@ -1,8 +1,9 @@
 
 var gulp = require('gulp');
+var livereload = require('gulp-livereload');
 
 /*
-    jshint
+    jshint -------------
 */
 
 // getting jshint options
@@ -21,9 +22,60 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter(stylish));
 });
 
-/*
-    server
-*/
 
+/*
+    js bundle -------------
+ */
+var concat = require('gulp-concat');
+
+gulp.task('js', function () {
+    gulp.src(['src/**/*.module.js', 'src/**/*.js', '!src/lib/**/*'])
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(livereload())
+});
+
+
+/*
+    css bundle -------------
+*/
+gulp.task('css', function () {
+    gulp.src('src/**/*.css')
+        .pipe(concat('styles.css'))
+        .pipe(gulp.dest('dist'))
+        .pipe(livereload())
+});
+
+
+/*
+    html --------------
+*/
+gulp.task('html', function () {
+    gulp.src('src/**/*.html')
+        .pipe(gulp.dest('dist'))
+        .pipe(livereload())
+});
+
+gulp.task('build', ['js', 'css', 'html']);
+
+
+/*
+    watch --------------
+ */
+gulp.task('watch', function () {
+    livereload.listen();
+    gulp.watch('src/**/*.html', ['html']);
+    gulp.watch('src/**/*.js',   ['js']);
+    gulp.watch('src/**/*.css',  ['css']);
+});
+
+
+/*
+    server -------------
+*/
 var serve = require('gulp-serve');
-gulp.task('serve', serve('src'));
+gulp.task('serve', ['build'], serve('dist'));
+
+
+
+gulp.task('default', ['serve', 'watch']);
