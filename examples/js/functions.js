@@ -16,3 +16,6 @@
     boom.boooom = boooom;
     boom();
     boom.boooom();
+
+    // У функции есть метод .toString(), который возвращает ее код
+    console.log(boom.toString());
