@@ -32,13 +32,21 @@ angular.module('app', [])
               return result //filledStar+...+emptyStar - it's string
             }
     })
+    .filter('filterByPrice', function (  ) {
+
+
+                console.log (minPrice, maxPrice);
+    
+
+    })
     .controller('ShoppingCart', function () {
-            this.added = [];
+        this.added = [];
             this.buy = function ( item ) {
+
             var newObj = { prod: item.label, num: 1 },
-                flag;
-            // this.added.push(newObj);
-            
+                flag,
+                disable = false;
+
             if( this.added.length ){
                 flag = true;
                 for ( var i in this.added ) {
@@ -69,10 +77,6 @@ angular.module('app', [])
         
     this.delProd = function ( c ) {
         this.added.splice( c, 1);
-    };
-
-    this.disBuy = function (e) {
-        return false 
     };
 
 })
