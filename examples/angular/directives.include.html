@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <!-- use bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+</head>
+<body ng-app>
+
+    <div class="container">
+
+        <h1>Тестируем директиву ng-include</h1>
+
+        <!-- Можно использовать как аттрибут: -->
+        <div ng-include="'directives.include-partial.html'"></div>
+
+        <!-- Либо как тег: -->
+        <ng-include src="'directives.include-partial.html'"></ng-include>
+
+        <!--
+            Обратите внимание, что в каждом случае используются две пары кавычек.
+            Это происходит из-за того, что значенте аттрибута - это expression.
+            А в них для строк используются кавычки.
+
+            Если бы у нас, допустим, был некий контроллер ctrl со свойством url, запись была следующая:
+
+            // где-то в скрипте контроллера:
+
+            .controller('Ctrl', function () {
+                this.url = 'directives.include-partial.html'
+            })
+
+            ...
+            // html:
+
+            <div ng-controller="Ctrl as ctrl">
+                ...
+                <div ng-include="ctrl.url"></div>
+                ...
+            </div>
+
+            -->
+
+    </div>
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+</body>
+</html>

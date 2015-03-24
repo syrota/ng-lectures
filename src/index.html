@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<style>
+	body{
+		width: 1080px;
+
+		margin: 0 auto;
+		}
+	#wrapper{
+		width: 100%;
+
+		border: 1px solid black;
+	}
+	/*.delete{
+		float: right;
+	position: relative;
+	top: -42px;
+	}*/
+
+	.header {
+
+		width: 100%;
+	}
+	h2{
+		display: inline-block;
+	}
+
+		</style>
+
+
+
+
+</head>
+<body ng-app="root">
+<div id="wrapper" class="col-lg-10" ng-controller="Buy as Busket" >
+
+	<div id="buy" class="left col-lg-5" ng-controller="Phones as BuyItem" >
+
+			<h2>Buy the Phone</h2>
+
+
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="PhonesModel in BuyItem.phonesBase">{{PhonesModel.phonesName}}
+					<input type="number"  style="width:35px" ng-model="quantity"  placeholder="0">
+					<button type="button" class="btn btn-warning pull-right" ng-click="Busket.buy(PhonesModel, quantity)">BUY</button>
+
+
+					</li>
+				</ul>
+
+		</div>
+	<div id="busket" class="right col-lg-5">
+	<div class="header">
+
+	<h2>Shopping Cart</h2>
+	<span class="total">Summ: {{Busket.summ}}</span>
+	<input type="button" value="DELETE" class="btn btn-danger" ng-click="Busket.del()">
+	</div>
+
+			 <ul class="list-group">
+    		    <li class="list-group-item" ng-repeat="value in Busket.Chosen track by $index">
+            		{{ value.inbusket }}
+             		<span class="badge">
+                    {{ value.counter }}
+                	</span>
+                	<span>{{Busket.rating}}</span>
+                	<span class="glyphicon glyphicon-remove" ng-click="Busket.dellast(value.inbusket)"></span>
+
+        		</li>
+    		</ul>
+
+	</div>
+</div>
+</body>
+<script>
+	angular.module('root',[])
+.controller('Phones', function(){
+
+		this.phonesBase = [
+			{'phonesName': 'HTC', price: 200, rating: 100},
+			{'phonesName': 'Lenovo' , price: 100},
+			{'phonesName': 'Ipont' , price: 500},
+			{'phonesName': 'Samsung' , price: 250},
+			{'phonesName': 'Nokia' , price: 100500}
+
+		];
+})
+.controller('Buy',function(){
+
+	this.Chosen =[];
+	this.inputBase = [];
+
+	this.buy = function(newphone, quantity ){
+
+		this.inputBase = angular.copy(quantity);
+
+		var isset = false;
+
+		for(var i = quantity; i > 0; i--){
+		for(var j in this.Chosen){
+
+			if(this.Chosen[j].inbusket == newphone.phonesName){
+				this.Chosen[j].counter++;
+				isset = true;
+
+				console.log(this.Chosen[j].price);
+			}
+		} /* for j loop */
+
+		if(isset == false){
+
+					this.Chosen.push({inbusket: newphone.phonesName, price: newphone.price, rating: newphone.rating, counter: 1});
+		}  /* if iss false end */
+		}; /* for i loop */
+	// console.log(this.Chosen);
+	// console.log(this.inputBase);
+	this.rating = this.Chosen[j].rating;
+	console.log(quantity);
+
+	this.summ = quantity * this.Chosen[j].price;
+	console.log(this.summ);
+	}.bind(this);
+
+	this.del = function(){
+		this.Chosen =[];
+
+	}.bind(this);
+
+	this.dellast = function(toremove){
+		for(var k = 0; k <= this.Chosen.length; k++){
+
+			var item = this.Chosen[k];
+
+
+			if(item.inbusket == toremove){
+				var index = this.Chosen.indexOf(item);
+
+				console.log(index);
+
+
+				this.Chosen.splice(index, 1);
+
+				console.log(this.inputBase);
+
+			}
+		}
+	}.bind(this);
+
+})
+
+</script>
+</html>
+
