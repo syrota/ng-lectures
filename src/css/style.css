@@ -1,0 +1,23 @@
+body{
+		width: 1080px;
+	
+		margin: 0 auto;
+		}
+	#wrapper{
+		width: 100%;
+
+		border: 1px solid black;
+	}
+	/*.delete{
+		float: right;
+	position: relative;
+	top: -42px;
+	}*/
+
+	.header {
+
+		width: 100%;
+	}
+	h2{
+		display: inline-block;
+	}
