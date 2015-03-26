@@ -1,0 +1,17 @@
+ <h1>Product</h1>
+ <div ng-controller="ProductsListController as products" class="content_block pull-left">
+    <input class="form-control" type="text" ng-model="searchString" placeholder="search" />
+    <input class="col-lg-5" type="number" placeholder="min" ng-model="products.minPrice" min="0" />
+    <input class="col-lg-5" type="number"  placeholder="max" ng-model="products.maxPrice" min="{{products.minPrice}}" />
+    <button class="btn btn_go btn-primary pull-right" ng-click="products.priceFilter()">go</button>
+    <ul class="list-group pull-left">
+        <li class="list-group-item" ng-repeat="brand in products.brands | filter:{label:searchString || ''} "  ng-if="brand.sale">
+            {{ brand.label }}
+            <div style="background-color: rgb({{150+100*brand.skidka}},{{150-100*brand.skidka}},{{150-100*brand.skidka}})" class="block">
+                sale for {{brand.skidka*100}} %
+            </div>
+            <span>{{brand.price | currency}}</span>
+            <button class="btn btn-primary pull-right" ng-click="cart.buy(brand)">Buy!</button>
+        </li>
+    </ul>
+</div>

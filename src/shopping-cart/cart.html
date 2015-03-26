@@ -1,0 +1,15 @@
+<h1>Shopping Cart</h1>
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="value in cart.added track by $index">
+        {{ value.prod }}
+        <span class="badge">
+            {{ value.counter }}
+        </span>
+        <button class="minus_btn btn btn-danger" ng-click="cart.delete($index)">-</button>
+    </li>
+    <button class="delall_btn btn btn-danger" ng-hide="cart.added.length == 0" ng-click="cart.deleteAll()">Del All</button>
+</ul>
+<div class="total">
+    Total Price: <span>{{cart.total | currency}}</span>
+ </div>
+
