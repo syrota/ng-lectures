@@ -4,56 +4,47 @@
     <meta charset="UTF-8">
     <title>SHOP</title>
 
-    <!-- use bootstrap -->
-<!--     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
- -->    <!-- products-list -->
-<!--     <link rel="stylesheet" href="products-list/products-list.css">
- -->    <!-- shopping-list -->
-<!--     <link rel="stylesheet" href="shopping-cart/shopping-cart.css">
- -->
-
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js"></script>
-    
-    <!-- Angular -->
-    <!--<script src="lib/angular/angular.min.js"></script>
-    <!-- App. Modules -->
-    <!--<script src="app.module.js"></script>
-    <!-- Prod. Controllers -->
-    <!--<script src="products-list/products-list.ctrl.js"></script>
-    <!-- Shop. Controllers -->
-    <!--<script src="shopping-cart/shopping-cart.ctrl.js"></script>-->
 
 </head>
 <body ng-app="app">
-  <div class="container-fluid" ng-controller="ShoppingCart as cart">
-    <div class="row">
+  <div class="container-fluid" ng-controller="ProductsListController as cart">
+    <div class="row" ng-controller="Product as products">
         <div class="col-xs-6">
-            <div class="panel panel-default">
+            <div class="panel panel-default" >
                 <div class="panel-heading"><h3>PRODUCTS</h3></div>
                 <div class="panel-body">
                     <h4>Product FILTER:</h4>
                     <p><i>Enter any filter by name by price all by ratings</i></p>
                     <input ng-model="query" type="text" placeholder="Filter by name" autofocus>
                     <br><br>
-<!--                     <p><i>Min & Max Filter by price</i></p>
-                    <input ng-model="minPrice" type="text" placeholder="Min price"><i> or / and </i>
-                    <input ng-model="maxPrice" type="text" placeholder="Max price">
- -->                </div>
-                <ul ng-controller="Product as products" class="list-group">
-                    <li ng-repeat="brand in products.brands | filter:query | orderBy: 'name'" class="list-group-item">
+                    <p><i>Filter by Min & Max price</i></p>
+                    <input ng-model="products.minPrice" min="0" type="number" placeholder="Enter Min"><i> or / and </i>
+                    <input ng-model="products.maxPrice" min="{{products.minPrice}}" type="number" placeholder="Enter Max">
+                    <!--<button class="btn btn-primary" ng-click="products.priceFilter()">Filter list</button>-->
+                </div>
+                <ul class="list-group">
+                    <li ng-repeat="brand in products.brands | filter:query | orderBy: 'name' | minmaxFilter: {min: products.minPrice, max: products.maxPrice}" class="list-group-item">
                         <div class="row">
                             <div class="col-xs-6 col-sm-3">
                                 <span class="prod-name">{{ brand.label }}</span>
                             </div>
                             <div class="col-xs-6 col-sm-3">
-                                <span class="prod-cost">{{ brand.price | currency:"$" }}</span>
+
+                                <span class="prod-cost">
+                                 {{ brand.price | currency:"$" }}
+                                 <i class="glyphicon glyphicon-certificate i-sale" ng-if="brand.sale" ng-style="{color: cart.color(brand.sale)}" >
+                                     <span class="sale-persent">{{brand.sale}}%</span>
+                                 </i>
+                                </span>
                             </div>
                             <div class="col-xs-6 col-sm-3">
                                 <span class="stars">  {{ brand.rating }} {{ brand.rating | stars }}</span>
                              </div>
                             <div class="col-xs-6 col-sm-3">
-                                <button class="btn btn-primary" ng-disabled="{{false}}" ng-click="cart.buy(brand)">Buy This!</button>
+                        <!--<button ng-disabled="brand.inCart">B</button>-->
+                                <button class="btn btn-primary" ng-disabled="brand.inCart" ng-click="cart.buy(brand)">Buy This!</button>
                             </div>
                         </div>
 
@@ -61,17 +52,26 @@
                 </ul>
             </div>
         </div>
-
-        <div class="col-xs-6">
+<!-- 01234546789ABCDEF -->
+        <div class="col-xs-6" >
             <div class="panel panel-default">
                 <div class="panel-heading"><h3>CHOOSEN</h3></div>
                 <ul class="list-group">
                     <li ng-repeat="value in cart.added track by $index" class="list-group-item">
-                        <span>{{value.prod}}</span>
-                        <span>{{value.num}}</span>
-                        <button ng-click="cart.addProd($index, value.prod)" >+</button>
-                        <button ng-click="cart.minProd($index)" >-</button>
-                        <button ng-click="cart.delProd($index)" >x</button>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4">
+                                    <span>{{value.prod}}</span>
+                                </div>
+                                <div class="col-xs-6 col-sm-4">
+                                    <span>{{value.num}}</span>
+                                </div>
+                                <div class="col-xs-6 col-sm-4">
+                                    <button class="btn btn-primary" ng-click="cart.addProd($index, value.prod)" >+</button>
+                                    <button class="btn btn-primary" ng-click="cart.minProd($index)" >-</button>
+                                    <button class="btn btn-primary" ng-click="cart.delProd($index, products.brands)" >x</button>
+                                </div>
+                            </div>
+
                     </li>
                 </ul>
             </div>
@@ -79,8 +79,7 @@
     </div>
 
 </div>
-
-<!--<div class="col-xs-6"></div>-->
-<!--<div class="col-xs-6"></div>-->
+<script src="lib/angular/angular.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

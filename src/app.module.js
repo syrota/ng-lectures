@@ -1,19 +1,55 @@
 /*
  * Описание главного модуля приложения
- */
+*/
 
 angular.module('app', [])
-    .controller('Product', function () {
-        this.brands = [
-                   {"label":"Samsung","price":300,"sale":true,"rating":4},
-                   {"label":"Sony","price":400,"sale":true,"rating":11},
-                   {"label":"Dell","price":250,"sale":true,"rating":16},
-                   {"label":"Apple","price":298,"sale":true,"rating":78},
-                   {"label":"Nicon","price":520,"sale":true,"rating":56},
-                   {"label":"Picon","price":985,"sale":true,"rating":84},
-                   {"label":"4U","price":282,"sale":true,"rating":41},
-                   {"label":"Google","price":888,"sale":false,"rating":99}
+    .controller('Product', function ($filter) {
+        this.brandsList = [
+                   {"label":"Samsung","price":300,"rating":4,"sale": 80},
+                   {"label":"Samsung","price":350,"rating":5},
+                   {"label":"Sony","price":400,"rating":11, "sale": 30},
+                   {"label":"Dell","price":250,"rating":16},
+                   {"label":"Apple","price":298,"rating":78, "sale": 100},
+                   {"label":"Nicon","price":520,"rating":56},
+                   {"label":"Picon","price":985,"rating":84, "sale": 10},
+                   {"label":"4U","price":282,"rating":41},
+                   {"label":"Google","price":888,"rating":99, "sale": 50}
                 ];
+                this.brands = this.brandsList;
+
+                this.priceFilter = function (){
+                    this.brands = $filter('minmaxFilter')(this.brandsList,{min:this.minPrice, max:this.maxPrice})
+                }
+    })
+    .filter('minmaxFilter', function () {
+            return function(list, params){
+                // console.log(list, params);
+                        var filterPrice = [];
+                        if (params.min != null && params.max != null ) {
+                            for (var i = 0; i<list.length; i++){
+                                if(list[i].price>= params.min && list[i].price <= params.max){
+                                    filterPrice.push(list[i]);
+                                }
+                            }
+                        } else if (params.min != null && params.max == null ){
+                            for(var i = 0; i<list.length; i++){
+                                if (list[i].price>=params.min) {
+                                    filterPrice.push(list[i]);
+                                };    
+                            }
+                        } else if(params.min == null && params.max != null) {
+                            for(var i = 0; i<list.length; i++){
+                                if (list[i].price<=params.max) {
+                                    filterPrice.push(list[i]);
+                                };    
+                            }
+                        } else {
+                            filterPrice = list;
+                        }
+                        // console.log(filterPrice)
+                        return filterPrice;
+            }
+
     })
     .filter('stars', function () {
             var filledStar = '\ue006',
@@ -32,51 +68,4 @@ angular.module('app', [])
               return result //filledStar+...+emptyStar - it's string
             }
     })
-    .filter('filterByPrice', function (  ) {
 
-
-                console.log (minPrice, maxPrice);
-    
-
-    })
-    .controller('ShoppingCart', function () {
-        this.added = [];
-            this.buy = function ( item ) {
-
-            var newObj = { prod: item.label, num: 1 },
-                flag,
-                disable = false;
-
-            if( this.added.length ){
-                flag = true;
-                for ( var i in this.added ) {
-                    if( this.added[i].prod == item.label ) {
-                        this.added[i].num++;
-                        flag = false;
-                    }
-                }
-                if ( flag ) {
-                    this.added.push(newObj);
-                };
-            } else {
-                this.added.push(newObj);
-            }
-    }.bind(this);
-        
-    this.addProd = function ( a ) {
-        this.added[a].num++;
-    };
-        
-    this.minProd = function ( b ) {
-        if ( this.added[b].num > 1 ) {
-            this.added[b].num--
-        } else {
-            this.added.splice( b, 1)
-        }
-    };
-        
-    this.delProd = function ( c ) {
-        this.added.splice( c, 1);
-    };
-
-})
