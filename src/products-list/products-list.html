@@ -1,0 +1,53 @@
+<div class="header">	
+			<h2>Buy the Phone</h2>
+			
+			<div id="filter">
+				<input type="text" placeholder="min price">
+				<input type="text" placeholder="max price">
+				<input type="button" value="Find">
+			</div>
+			<div id="sort">
+				<a href="" ng-click="BuyItem.orderBy='price'">по цене</a>
+				<a href="" ng-click="BuyItem.orderBy='rating'">по рейтингу</a>
+			</div>
+			</div>
+			
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="PhonesModel in BuyItem.phonesBase | orderBy:BuyItem.orderBy:revers">{{PhonesModel.phonesName}}
+					<span>{{PhonesModel.price | currency}}</span>	
+					 <span class="stars">   {{ PhonesModel.rating | stars }}</span>
+					<input type="number"  style="width:35px" ng-model="quantity"  placeholder="0">
+					<button type="button" class="btn btn-success pull-right" ng-click="Busket.buy(PhonesModel, quantity)">BUY</button>
+					
+					
+					</li>
+				</ul>
+				<form action="">
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i>
+						</div>
+							<input type="text" placeholder="Search the phone Model" class="form-control" ng-model="search"></div>
+					</div>
+				</form>
+				<div class="table-responsive">
+					
+				<table class="table table-striped">
+					<thead>
+						<tr class="info">
+							<td> <a href="" ng-click="sortType = 'phonesName'; sortReverse = !sortReverse">Phone Name</a></td>
+							<td>  <a href="" ng-click="sortType = 'rating'; sortReverse = !sortReverse">Phone rating</a></td>
+							<td>Quantity</td>
+							<td>  <a href="" ng-click="sortType = 'price'; sortReverse = !sortReverse">Price</a></td>
+							<td></td>
+						</tr>
+					</thead>
+						<tr  ng-repeat="PhonesModel in BuyItem.phonesBase | orderBy:sortType:sortReverse | filter:search">
+							<td>{{PhonesModel.phonesName}}</td>
+							<td> <span class="stars">   {{ PhonesModel.rating | stars }}</span></td>
+							<td><input type="number"  style="width:35px" ng-model="quantity"  placeholder="0"></td>
+							<td>{{PhonesModel.price | currency}}</td>
+							<td><button type="button" class="btn btn-success pull-right" ng-click="Busket.buy(PhonesModel, quantity)">BUY</button></td>
+						</tr>
+				</table>
+				</div>

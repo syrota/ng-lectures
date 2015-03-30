@@ -1,3 +1,4 @@
+angular.module('root',[])
 .controller('Buy',function(){
 
 	this.Chosen =[];
