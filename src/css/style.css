@@ -4,9 +4,10 @@ body{
 		margin: 0 auto;
 		}
 	#wrapper{
-		width: 100%;
-
-		border: 1px solid black;
+		/*width: 100%;*/
+	border-radius: 10px;
+	background-color: #BBD9A0;
+		
 	}
 	/*.delete{
 		float: right;
@@ -19,5 +20,15 @@ body{
 		width: 100%;
 	}
 	h2{
-		display: inline-block;
+		display: inline;
 	}
+	.stars {
+  font-family: 'Glyphicons Halflings';
+  color: black;
+}
+.header{
+	height: 100px;
+}
+.header h2{
+	color: #000000;
+}
