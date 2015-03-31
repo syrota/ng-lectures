@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body ng-app="app">
+<body ng-cloak ng-app="app">
 
 <div ng-controller="ShoppingCartController as cart" class="col-lg-12">
     <div class="left col-lg-12">
@@ -16,6 +16,7 @@
     </div>
 </div>
     <script src="lib/angular/angular.min.js"></script>
+    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
