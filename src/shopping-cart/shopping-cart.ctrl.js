@@ -7,7 +7,6 @@ angular.module('app').controller('ShoppingCartController', function ($localStora
         this.$storage = $localStorage.$default({
             added: []
         });
-        console.log(this.$storage)
         // this.$storage.added = [];
         this.total = 0;
         this.buy = function (item) {
