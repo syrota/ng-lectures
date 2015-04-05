@@ -36,8 +36,8 @@ angular.module('app').controller('ShoppingCartController', function ($localStora
             }
             // this.total -=item.price;
              // console.log(this.delete.item);
-             console.log(this.$storage.added);
-             console.log(this.total);
+             // console.log(this.$storage.added);
+             // console.log(this.total);
         }.bind(this);
         this.deleteAll = function(){
             this.$storage.added.splice(0, this.$storage.added.length);

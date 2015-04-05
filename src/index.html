@@ -8,11 +8,10 @@
 </head>
 <body ng-cloak ng-app="app">
 
-<div ng-controller="ShoppingCartController as cart" class="col-lg-12">
+<div class="col-lg-12">
     <div class="left col-lg-12">
-        <div class="col-lg-6" ng-include="'/products-list/products.html'">
-    </div>
-    <div class="col-lg-6" ng-include="'/shopping-cart/cart.html'">
+        <div class="col-lg-6" ui-view="prodView"></div>
+        <div class="col-lg-6" ui-view="cartView"></div>
     </div>
 </div>
     <script src="lib/angular/angular.min.js"></script>

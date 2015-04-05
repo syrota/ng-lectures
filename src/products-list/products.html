@@ -1,8 +1,6 @@
  <h1>Product</h1>
 
  <div ng-controller="ProductsListController as products" class="content_block pull-left" ng-init="products.init()">
-    <div ui-view></div>
-    <a ui-sref='testState'>test routing</a>
     <input class="form-control" type="text" ng-model="searchString" placeholder="search" />
     <input class="col-lg-5" type="number" placeholder="min" ng-model="products.minPrice" min="0" />
     <input class="col-lg-5" type="number"  placeholder="max" ng-model="products.maxPrice" min="{{products.minPrice}}" />
