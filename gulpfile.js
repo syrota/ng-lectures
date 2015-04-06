@@ -51,7 +51,7 @@ gulp.task('css', function () {
     html --------------
 */
 gulp.task('html', function () {
-    gulp.src('src/**/*.html')
+    gulp.src(['src/**/*.html', 'src/**/*.json'])
         .pipe(gulp.dest('dist'))
         .pipe(livereload())
 });

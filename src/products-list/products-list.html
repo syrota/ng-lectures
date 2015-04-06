@@ -1,0 +1,28 @@
+
+<h1>Products</h1>
+
+<nav>
+    <ul class="nav nav-pills">
+        <li ui-sref-active="active"><a ui-sref="products({ by: 'price' })">price</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ by: 'name' })">name</a></li>
+        <!--<li ui-sref-active="active"><a ui-sref="products({ by: 'rating' })">rating</a></li>-->
+        <li ui-sref-active="active"><a ui-sref="products({ order: 'asc' })">asc</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ order: 'desc' })">desc</a></li>
+    </ul>
+</nav>
+
+<ul class="list-unstyled">
+    <li ng-repeat="item in products.items track by item.id">
+
+        <article class="media">
+            <div class="media-left">
+                <img class="media-object" src="" alt=""/>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ item.name }}</h4>
+                <div>{{ item.price }}</div>
+            </div>
+        </article>
+
+    </li>
+</ul>
