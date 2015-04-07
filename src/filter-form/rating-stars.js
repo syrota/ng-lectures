@@ -1,5 +1,5 @@
 
-angular.module('root')
+angular.module('app')
     .filter('stars', function() {
         'use strict';
         var filledStar = '\ue006',
