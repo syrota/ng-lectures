@@ -1,4 +1,4 @@
-<div id="buy" class="col-lg-6 pannel" ng-controller="ProductsListCtrl as buyItem">
+ <div id="buy" class="col-lg-6 pannel" ng-controller="ProductsListCtrl as buyItem">
             <!-- phones-list -->
             <div class="header">
                 <h2>Buy the Phone</h2>
@@ -12,14 +12,7 @@
                     <a href="" ng-click="buyItem.orderBy='rating'">по рейтингу</a>
                 </div>
             </div>
-         <!--    <ul class="list-group">
-                <li class="list-group-item" ng-repeat="phonesModel in buyItem.phonesBase | orderBy:buyItem.orderBy:revers">{{phonesModel.phonesName}}
-                    <span>{{phonesModel.price | currency}}</span>
-                    <span class="stars">   {{ phonesModel.rating | stars }}</span>
-                    <input type="number" style="width:35px" ng-model="quantity" placeholder="0">
-                    <button type="button" class="btn btn-success pull-right" ng-click="basket.buy(phonesModel, quantity)">BUY</button>
-                </li>
-            </ul> -->
+    
             <form action="">
                 <div class="form-group">
                     <div class="input-group">
@@ -54,3 +47,33 @@
                 </table>
             </div>
         </div>
+=======
+<!--
+<h1>Products</h1>
+
+<nav>
+    <ul class="nav nav-pills">
+        <li ui-sref-active="active"><a ui-sref="products({ by: 'price' })">price</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ by: 'name' })">name</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ by: 'rating' })">rating</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ order: 'asc' })">asc</a></li>
+        <li ui-sref-active="active"><a ui-sref="products({ order: 'desc' })">desc</a></li>
+    </ul>
+</nav>
+
+<ul class="list-unstyled">
+    <li ng-repeat="item in products.items track by item.id">
+
+        <article class="media">
+            <div class="media-left">
+                <img class="media-object" src="" alt=""/>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ item.name }}</h4>
+                <div>{{ item.price }}</div>
+            </div>
+        </article>
+
+    </li>
+</ul>
+>>>>>>> 8e4047ffa306d9fe221b8137ab05ac7440e62259

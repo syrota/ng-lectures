@@ -1,4 +1,4 @@
-angular.module('root')
+angular.module('app')
     .controller('ShoppingCartCtrl', function() {
         'use strict';
         // this.Chosen = [];  // 

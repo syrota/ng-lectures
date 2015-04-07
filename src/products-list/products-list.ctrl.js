@@ -1,4 +1,4 @@
-	angular.module('root')
+	angular.module('app')
 	    .controller('ProductsListCtrl', function() {
 	        'use strict';
 	        this.phonesBase = [{
