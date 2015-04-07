@@ -1,5 +1,5 @@
 	angular.module('root')
-	    .controller('Phones', function() {
+	    .controller('ProductsListCtrl', function() {
 	        'use strict';
 	        this.phonesBase = [{
 	                'phonesName': 'HTC',

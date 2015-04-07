@@ -11,9 +11,7 @@
 </head>
 
 <body ng-app="root">
-    <!-- ShoppingCartCtrl -->
-      <div id="wrapper" class="row" ng-controller="ShoppingCartCtrl as basket">
-        <!-- ProductsListCtrl -->
+    <div id="wrapper" class="row" ng-controller="ShoppingCartCtrl as basket">
         <div id="buy" class="col-lg-6 pannel" ng-controller="ProductsListCtrl as buyItem">
             <!-- phones-list -->
             <div class="header">
@@ -70,7 +68,6 @@
                 </table>
             </div>
         </div>
-        
         <div id="busket" class="col-lg-6 pannel">
             <!-- shopping cart -->
             <div class="header">
@@ -95,13 +92,10 @@
              <!-- shopping cart -->
         </div>
     </div>
-   <div ui-view></div>
 </body>
 <script src="app.module.js"></script>
-<!-- <script src="products-list/config.js"></script>
-<script src="shopping-cart/config.js"></script>
 <script src="products-list/products-list.ctrl.js"></script>
 <script src="shopping-cart/shopping-cart.ctrl.js"></script>
-<script src="filter-form/rating-stars.js"></script> -->
+<script src="fiter/rating-stars.js"></script>
 
 </html>

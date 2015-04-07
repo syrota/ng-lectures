@@ -1,14 +1,18 @@
 angular.module('root')
-    .controller('Buy', function() {
+    .controller('ShoppingCartCtrl', function() {
         'use strict';
-        this.Chosen = [];
+        // this.Chosen = [];  // 
+        this.Chosen = sessionStorage.getItem('cart'); // 
+        this.Chosen = this.Chosen ? JSON.parse(this.Chosen) : [];
         this.inputBase = [];
         this.totalItems = 0;
         this.totalSumm = 0;
+       
+
 
         this.buy = function(newphone, quantity) {
 
-            this.inputBase = angular.copy(quantity);
+            this.inputBase.push(quantity);
 
             var isset = false;
 
@@ -18,8 +22,6 @@ angular.module('root')
                     if (this.Chosen[j].inbusket == newphone.phonesName) {
                         this.Chosen[j].counter++;
                         isset = true;
-
-
                     }
                 } /* for j loop */
 
@@ -33,20 +35,21 @@ angular.module('root')
                     });
                 } /* if iss false end */
             }; /* for i loop */
-            // console.log(this.Chosen);
-            // console.log(this.inputBase);
             this.rating = this.Chosen[j].rating;
-
             this.summ = quantity * this.Chosen[j].price;
-
-            this.totalItems += this.inputBase;
-
-            console.log(this.rating);
-
+            this.totalItems += this.inputBase[j];
             this.totalSumm += this.summ;
+            console.log();
+            console.log();
+            console.log();
+            console.log();
+           
+            // LocasStorage
 
+            // sessionStorage.setItem(this.Chosen[j].inbusket, [this.Chosen[j].price, this.inputBase]);
 
-
+            sessionStorage.setItem('cart', JSON.stringify(this.Chosen));
+            console.log(this.Chosen);
         }.bind(this);
 
         // Delete Add Items from basket
@@ -63,16 +66,10 @@ angular.module('root')
 
                 var item = this.Chosen[k];
 
-
                 if (item.inbusket == toremove) {
                     var index = this.Chosen.indexOf(item);
 
-                    console.log(index);
-
-
                     this.Chosen.splice(index, 1);
-
-                    console.log(this.inputBase);
 
                 }
             }
