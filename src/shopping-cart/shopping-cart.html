@@ -1,0 +1,28 @@
+
+        <!-- ProductsListCtrl -->
+       
+        
+        <div id="busket" class="col-lg-6 pannel">
+            <!-- shopping cart -->
+            <div class="header">
+                <h2>Shopping Cart</h2>
+                <input type="button" value="DELETE" class="btn btn-danger" ng-click="basket.del()">
+                <div>
+                    <span class="items">Items: {{basket.totalItems}}</span>
+                    <span class="total">Summ: {{basket.totalSumm | currency }}</span>
+                </div>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="value in basket.Chosen track by $index">
+                    {{ value.inbusket }}
+                    <span class="badge">
+                        {{ value.counter }}
+                        </span>
+                    <span>{{value.rating}}
+                        <span class="glyphicon glyphicon-remove" ng-click="basket.dellast(value.inbusket)"></span>
+                    </span>
+                </li>
+            </ul>
+             <!-- shopping cart -->
+        </div>
+  
