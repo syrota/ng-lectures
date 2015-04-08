@@ -7,7 +7,7 @@ angular.module('app')
         this.inputBase = [];
         this.totalItems = 0;
         this.totalSumm = 0;
-       
+
 
 
         this.buy = function(newphone, quantity) {
@@ -43,7 +43,7 @@ angular.module('app')
             console.log();
             console.log();
             console.log();
-           
+
             // LocasStorage
 
             // sessionStorage.setItem(this.Chosen[j].inbusket, [this.Chosen[j].price, this.inputBase]);

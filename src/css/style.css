@@ -1,7 +1,5 @@
 body{
-		width: 1080px;
-	
-		margin: 0 auto;
+		background-color: #919191;
 		}
 	#wrapper{
 		/*width: 100%;*/
@@ -27,7 +25,7 @@ body{
   color: black;
 }
 .header{
-	height: 100px;
+	height: 140px;
 }
 .header h2{
 	color: #000000;

@@ -1,4 +1,3 @@
-
 angular.module('app')
     .filter('stars', function() {
         'use strict';
