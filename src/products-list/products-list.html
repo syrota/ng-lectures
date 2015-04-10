@@ -1,39 +1,45 @@
 
 <h1>Products</h1>
 
-<div>
-    Sort by:
-    <div class="btn-group">
-        <a class="btn btn-xs" ui-sref-active="btn-primary" ui-sref="products({ by: 'price' })">price</a>
-        <a class="btn btn-xs" ui-sref-active="btn-primary" ui-sref="products({ by: 'name' })">name</a>
+<div class="btn-toolbar" role="toolbar">
+    <div role="group" class="btn-group btn-group-xs">
+        <a class="btn btn-default" ui-sref-active="btn-primary" ui-sref="products({ by: 'price' })">by price</a>
+        <a class="btn btn-default" ui-sref-active="btn-primary" ui-sref="products({ by: 'name' })">by name</a>
     </div>
-    Order:
-    <div class="btn-group">
-        <a class="btn btn-xs" ui-sref-active="btn-primary" ui-sref="products({ order: '' })">asc</a>
-        <a class="btn btn-xs" ui-sref-active="btn-primary" ui-sref="products({ order: '-' })">desc</a>
+    <div role="group" class="btn-group btn-group-xs">
+        <a class="btn btn-default" ui-sref-active="btn-primary" ui-sref="products({ order: '' })">asc</a>
+        <a class="btn btn-default" ui-sref-active="btn-primary" ui-sref="products({ order: '-' })">desc</a>
     </div>
 </div>
 
-<ul class="list-unstyled">
+<ul class="products-list list-unstyled">
     <li ng-repeat="item in products.items | orderBy:products.orderBy | limitTo:products.limit track by item.id">
 
         <article class="product row">
 
-            <div class="col-md-9">
-                <h4 class="name">{{ item.name }}</h4>
+            <div class="col-md-3">
+                <a class="thumbnail" href=""><img src="http://placehold.it/350x150" alt=""/></a>
+            </div>
+
+            <div class="col-md-6">
+                <div class="name">{{ item.name }}</div>
                 <div>{{ item.description | limitTo:100 }}</div>
             </div>
 
             <div class="col-md-3">
                 <div class="price">{{ item.price }}</div>
-                <div class="actions btn-group">
-                    <button class="btn btn-primary btn-sm" ng-click="item.buy()">
+                <div class="actions btn-group btn-group-sm">
+
+                    <button class="btn btn-default" ng-click="item.unBuy()" ng-if="item.getShoppingCartQuantity()">-</button>
+
+                    <button ng-if="item.getShoppingCartQuantity()" class="btn btn-default" disabled>
+                        {{ item.getShoppingCartQuantity() }}
+                    </button>
+
+                    <button class="btn btn-success" ng-click="item.buy()">
                         {{ item.getShoppingCartQuantity() ? '+' : 'купить' }}
                     </button>
-                    <button class="btn btn-secondary btn-sm" ng-click="item.unBuy()" ng-if="item.getShoppingCartQuantity()">-</button>
-                </div>
-                <div ng-if="item.getShoppingCartQuantity()">
-                    In the cart: <b>{{ item.getShoppingCartQuantity() }}</b>
+
                 </div>
             </div>
 

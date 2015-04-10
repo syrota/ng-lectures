@@ -23,7 +23,7 @@ angular.module('app').config(function ($stateProvider) {
 
                 templateUrl: '/products-list/products-list.html',
 
-                controller: function (productsList, $state, $stateParams) {
+                controller: function (productsList, $stateParams) {
                     this.orderBy = $stateParams.by ? ( ($stateParams.order || '') + $stateParams.by ) : '';
                     this.limit = +$stateParams.limit || 10;
                     this.items = productsList;
