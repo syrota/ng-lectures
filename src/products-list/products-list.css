@@ -1,3 +1,15 @@
 /*
  * Набор стилей для списка товаров
  */
+.product {
+    margin-bottom: 30px;
+}
+
+.product .name {
+    text-transform: capitalize;
+}
+
+.product .price {
+    font-size: 20px;
+    font-weight: bold;
+}

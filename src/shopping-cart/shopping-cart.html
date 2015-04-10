@@ -1,0 +1,9 @@
+<h1>Shopping Cart</h1>
+
+<ul class="list-unstyled">
+    <li ng-repeat="item in cart.items track by item.product.id">
+        <h3>{{ item.product.name }}</h3>
+        <div>{{ item.product.price | currency }}</div>
+        <div>{{ item.quantity | number:0 }}</div>
+    </li>
+</ul>

@@ -7,31 +7,45 @@ angular.module('app').config(function ($stateProvider) {
 
     $stateProvider.state('products', {
 
-        url: '/?order&by',
-
-        templateUrl: '/products-list/products-list.html',
+        url: '/?order&by&limit',
 
         resolve: {
-
-            cart: function (ShoppingCart) {
-                return ShoppingCart.list();
-            },
 
             productsList: function (ProductsList) {
                 return ProductsList.list();
             }
-        },
-
-        controller: function (productsList, $stateParams, cart) {
-
-            this.orderBy = $stateParams.orderBy;
-            this.order = $stateParams.order;
-            this.items = productsList;
-            this.cart = cart;
 
         },
 
-        controllerAs: 'products'
+        views: {
+
+            content: {
+
+                templateUrl: '/products-list/products-list.html',
+
+                controller: function (productsList, $state, $stateParams) {
+                    this.orderBy = $stateParams.by ? ( ($stateParams.order || '') + $stateParams.by ) : '';
+                    this.limit = +$stateParams.limit || 10;
+                    this.items = productsList;
+                },
+
+                controllerAs: 'products'
+
+            },
+
+            aside: {
+
+                templateUrl: '/shopping-cart/shopping-cart.html',
+
+                controller: function (ShoppingCart) {
+                    return ShoppingCart;
+                },
+
+                controllerAs: 'cart'
+            }
+
+        }
+
 
     });
 

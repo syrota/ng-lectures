@@ -8,9 +8,17 @@
 </head>
 <body ng-app="app">
 
-    <div class="container">
-        <div ui-view></div>
-    </div>
+    <section class="container">
+
+        <header></header>
+
+        <section class="page-content row">
+            <div class="col-md-9" ui-view="content"></div>
+            <aside class="col-md-3" ui-view="aside"></aside>
+        </section>
+
+
+    </section>
 
     <script src="lib/angular/angular.min.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
