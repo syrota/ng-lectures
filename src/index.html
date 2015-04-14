@@ -1,28 +1,23 @@
-    <!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body ng-app="app">
-      <div id="wrapper" class="row">
-    
-   <div ui-view='list'></div>
-    <div ui-view='cart'></div>
+	<div ui-view></div>
 
-  </div>
+	<!-- <div ng-include="'side.html'"></div> -->
+
 </body>
-<script src="app.module.js"></script>
-<script src="products-list/products-list.ctrl.js"></script>
-<script src="shopping-cart/shopping-cart.ctrl.js"></script>
-<script src="filter-form/rating-stars.js"></script>
-
+<script src="app.js"></script>
+<script src="config.js"></script>
+<script src="controller.js"></script>
 
 </html>
