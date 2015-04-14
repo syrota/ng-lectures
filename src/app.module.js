@@ -2,26 +2,83 @@
  * Описание главного модуля приложения
 */
 
-angular.module('app', [])
-    .controller('Product', function ($filter) {
-        this.brandsList = [
-                   {"label":"Samsung","price":300,"rating":4,"sale": 80},
-                   {"label":"Samsung","price":350,"rating":5},
-                   {"label":"Sony","price":400,"rating":11, "sale": 30},
-                   {"label":"Dell","price":250,"rating":16},
-                   {"label":"Apple","price":298,"rating":78, "sale": 100},
-                   {"label":"Nicon","price":520,"rating":56},
-                   {"label":"Picon","price":985,"rating":84, "sale": 10},
-                   {"label":"4U","price":282,"rating":41},
-                   {"label":"Google","price":888,"rating":99, "sale": 50}
-                ];
-                this.brands = this.brandsList;
-
-                this.priceFilter = function (){
-                    this.brands = $filter('minmaxFilter')(this.brandsList,{min:this.minPrice, max:this.maxPrice})
+angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap.pagination'])
+    .config(function( $stateProvider, $urlRouterProvider ){
+        $urlRouterProvider.otherwise("/");
+        $stateProvider.state('app',{
+            url: '/:page',
+            views: {
+                'products': {
+                    templateUrl: 'products-list/products.html',
+                    controller: 'ProductsListCtrl',
+                    controllerAs: 'products'
+                },
+                'cart': {
+                    templateUrl: 'shopping-cart/shopping-cart.html',
+                    controller: 'CartCtrl',
+                    controllerAs: 'cart'
                 }
+            }, 
+            params: {
+                page: 1
+            }
+        })
     })
-    .filter('minmaxFilter', function () {
+    .service('Products', function( $http ){
+        this.list = function(){
+            return $http.get('/products.json');
+        };
+        return this;
+    })
+    .factory('Cart', function($rootScope, $localStorage) {
+        var cart = {},
+            price = 0,
+            sale = 0;
+
+        var $storage = $localStorage.$default({
+            cartList: []
+        });
+        cart.addNew = function (product) {
+            var prod = {
+                name: product.label,
+                amount: 1,
+                price: product.price,
+                sale: product.sale
+            }
+            $storage.cartList.push(prod);
+        }
+        cart.addOne = function (product) {
+            for(var i = 0; i < $storage.cartList.length; i++){
+                if(product.name == $storage.cartList[i].name){
+                    $storage.cartList[i].amount++;
+                }
+            }
+        }
+        cart.deleteOne = function (product) {
+            for(var i = 0; i < $storage.cartList.length; i++){
+                if(product.name == $storage.cartList[i].name){
+                    $storage.cartList[i].amount--;
+                    if ($storage.cartList[i].amount == 0) {
+                        $rootScope.$broadcast('removeFromCart', {name: $storage.cartList[i].name});
+                        $storage.cartList.splice(i, 1);
+                    }
+                }
+            }
+        }
+        cart.delete = function (product) {
+            for(var i = 0; i < $storage.cartList.length; i++){
+                if(product.name == $storage.cartList[i].name){
+                    $rootScope.$broadcast('removeFromCart', {name: $storage.cartList[i].name});
+                    $storage.cartList.splice(i, 1);
+                }
+            }
+        }
+        cart.list = function () {
+            return $storage.cartList;
+        }
+        return cart;
+    })
+.filter('minmaxFilter', function () {
             return function(list, params){
                 // console.log(list, params);
                         var filterPrice = [];

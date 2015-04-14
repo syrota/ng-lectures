@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises</title>
+    <!-- use bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<body ng-app="app">
+
+    <div class="container" ng-controller="TestingPromisesController as test">
+        <h1>Первый промис:</h1>
+        {{ test.first }}
+        <h1>Второй промис:</h1>
+        {{ test.second }}
+    </div>
+
+    <script>
+
+        angular.module('app', [])
+
+        .service('promises', function ($q) {
+
+            // ----------------------------------------------------------------------
+
+            this.getFirst = function () {
+
+                // Promise-ы предоставляют интерфейс для взаимодействия с объектами,
+                // содержащими результат выполнения некоторой операции, время окончания которой неизвестно
+                var deferred = $q.defer();
+
+                // Изначально любой promise не разрешен (unresolved) ..
+
+                setTimeout(function () {
+
+                    if (Math.random() <= .5) {
+
+                        // .. и будет разрешен либо с определенным значением (resolved) ..
+                        deferred.resolve('success!');
+//                        console.log('resolve');
+
+                    } else {
+
+                        //  .. либо отвергнут с ошибкой (rejected) ..
+                        deferred.reject('error');
+//                        console.log('reject');
+
+                    }
+
+                    // Как только promise становится разрешен или отвергнут, его состояние уже не может измениться,
+                    // что обеспечивает неизменность состояния в течение какого угодно числа проверок.
+
+                    // Эти вызовы не повлияют на результат
+                    deferred.resolve('resolve second try');
+                    deferred.reject('reject second try');
+
+                }, 5000);
+
+                return deferred.promise;
+
+            };
+
+            // ----------------------------------------------------------------------
+
+            this.getSecond = function () {
+
+                // Есть и другой способ создания промисов. Тот же код (только без вывода в консоль):
+                return $q(function (resolve, reject) {
+                    setTimeout(function () {
+                        Math.random() <= .5 ? resolve('success!') : reject('error')
+                    }, 4000);
+                })
+
+            }
+
+
+        })
+
+        .controller('TestingPromisesController', function (promises) {
+
+            // Итак, что из себя представляет promise? Это объект с методами:
+
+            // .then    (successCallback, errorCallback..)
+            // .catch   (errorCallback)   = promise.then(null, errorCallback)
+            // .finally (callback..)
+
+            promises.getFirst()
+
+            .then(
+                // successCallback:
+                function (data) {
+
+                    // Добавляем данные в наш контроллер
+                    this.first = data;
+
+                    // Возвращаем тот же результат, что бы не потерять цепочку...
+                    return data;
+
+                }.bind(this) // - не забываем о this(!), ведь это новая функция
+            )
+            // результат вызова .then() - будет тоже промис...
+
+            // и мы можем снова обработать его:
+            .then(function (data) {
+                // допустим, выведем его в консоль:
+                console.log('chaining', data);
+                return data; // не теряем данные
+            })
+
+            // и снова обработать его. В этот раз смотрим на rejected состояние
+            .catch(
+                // errorCallback:
+                function (data) {
+                    // Добавляем данные в наш контроллер
+                    this.first = data;
+                    return data;
+                }.bind(this) // - не забываем о this(!), ведь это новая функция
+            );
+
+            promises.getSecond().then(
+                // success:
+                function (data) { this.second = data; return data }.bind(this),
+                // error:
+                function (data) { this.second = data; return data }.bind(this)
+            );
+
+            // Вот этот код, в отличии от функций выше - синхронный. Кладем в контроллер что-то пока ждем наш промис...
+            this.first = 'waiting...';
+            this.second = 'waiting...';
+
+        })
+
+    </script>
+</body>
+</html>

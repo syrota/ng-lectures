@@ -1,0 +1,36 @@
+<div class="panel panel-default" ng-init="products.init()">
+    <div class="panel-heading"><h3>PRODUCTS</h3></div>
+    <div class="panel-body">
+        <h4>Product FILTER:</h4>
+        <p><i>Enter any filter by name by price all by ratings</i></p>
+        <input ng-model="products.query" type="text" placeholder="Filter by name" autofocus>
+        <br><br>
+        <p><i>Filter by Min & Max price</i></p>
+        <input ng-model="products.minPrice" min="0" type="number" placeholder="Enter Min"><i> or / and </i>
+        <input ng-model="products.maxPrice" min="{{products.minPrice}}" type="number" placeholder="Enter Max">
+    </div>
+    {{vm.$stateParams}}
+    <ul class="list-group">
+        <li ng-repeat="brand in products.brands | filter:products.query | orderBy: 'name' | minmaxFilter: {min: products.minPrice, max: products.maxPrice}" class="list-group-item">
+            <div class="row">
+                <div class="col-xs-6 col-sm-3">
+                    <span class="prod-name">{{ brand.label }}</span>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <span class="prod-cost">
+                        {{ brand.price | currency:"$" }}
+                        <i class="glyphicon glyphicon-certificate i-sale" ng-if="brand.sale" ng-style="{color: products.color(brand.sale)}" >
+                            <span class="sale-persent">{{brand.sale}}%</span>
+                        </i>
+                    </span>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <span class="stars">  {{ brand.rating }} {{ brand.rating | stars }}</span>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <button class="btn btn-primary" ng-disabled="brand.inCart" ng-click="products.buy(brand)">Buy This!</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,26 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>CHOOSEN</h3></div>
+    <ul class="list-group">
+        <li ng-repeat="item in cart.cart track by $index" class="list-group-item">
+<!--         {{item}} -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4">
+                        <span>{{item.name}}</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <span>{{item.amount}}</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-5">
+                        
+                        <input ng-model="item.amount" class="prod-number" >
+                            
+                        <button class="btn btn-primary" ng-click="cart.addProd(item)" >+</button>
+                        <button class="btn btn-primary" ng-click="cart.minProd(item)" >-</button>
+                        <button class="btn btn-primary" ng-click="cart.delProd(item)" >x</button>
+                    </div>
+                </div>
+
+        </li>
+    </ul>
+</div>
