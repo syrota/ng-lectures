@@ -1,5 +1,5 @@
 angular.module('app')
-    .service('ProductsList', function ($http, Product) {
+    .service('ProductsList', function ($http, productsListFactory) {
 
         'use strict';
 
@@ -10,9 +10,7 @@ angular.module('app')
                 .then(function (response) {
                     return response.data;
                 })
-                .then(function (data) {
-                    return (data || []).map(Product);
-                });
+                .then(productsListFactory);
 
         };
 

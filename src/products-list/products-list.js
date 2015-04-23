@@ -5,9 +5,12 @@ angular.module('app').config(function ($stateProvider) {
 
     'use strict';
 
+    // Доступные параметры в url
+    var urlParameters = ['order', 'by', 'page'];
+
     $stateProvider.state('products', {
 
-        url: '/?order&by&limit',
+        url: '/?' + urlParameters.join('&'),
 
         resolve: {
 
@@ -18,6 +21,12 @@ angular.module('app').config(function ($stateProvider) {
         },
 
         views: {
+
+            asideLeft: {
+                templateUrl:  '/search-form/search-form.html',
+                controller:   'SearchFormController',
+                controllerAs: 'search'
+            },
 
             content: {
 
@@ -33,7 +42,7 @@ angular.module('app').config(function ($stateProvider) {
 
             },
 
-            aside: {
+            asideRight: {
 
                 templateUrl: '/shopping-cart/shopping-cart.html',
 

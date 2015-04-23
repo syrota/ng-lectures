@@ -1,0 +1,14 @@
+<form>
+
+    <fieldset class="row">
+        <div class="col-md-6">
+            <label>Price from</label>
+            <input class="form-control" type="number" ng-model="search.minPrice" min="0" />
+        </div>
+        <div class="col-md-6">
+            <label>to</label>
+            <input class="form-control" type="number" ng-model="search.maxPrice" max="{{ search.productsMaxPrice }}" />
+        </div>
+    </fieldset>
+
+</form>

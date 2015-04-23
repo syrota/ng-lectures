@@ -1,0 +1,32 @@
+<nav>
+    <ul class="pagination">
+
+        <li ng-class="{ disabled: isFirst }">
+            <a ng-if="!isFirst" ui-sref="{{ prev.sref }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            <span ng-if="isFirst" class="disabled" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </span>
+        </li>
+
+        <li ng-repeat="page in pages track by page.number" ng-class="{ active: page.isCurrent }">
+
+            <a ng-if="!page.isCurrent" ui-sref="{{ page.sref }}">{{ page.number }}</a>
+            <span ng-if="page.isCurrent">{{ page.number }}</span>
+
+        </li>
+
+        <li ng-class="{ disabled: isLast }">
+
+            <a ng-if="!isLast" ui-sref="{{ next.sref }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+
+            <span ng-if="isLast" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </span>
+
+        </li>
+    </ul>
+</nav>

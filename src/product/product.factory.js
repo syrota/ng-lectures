@@ -1,6 +1,9 @@
 
 angular.module('app').factory('Product', function (ShoppingCart) {
 
+    /**
+     * @class Product
+     */
     var Product = function (data) {
 
         // копируем все свойства
