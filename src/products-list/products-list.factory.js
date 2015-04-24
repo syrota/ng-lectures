@@ -2,6 +2,7 @@
 angular.module('app').factory('productsListFactory', function (Product) {
 
     /**
+     * @class ProductsListClass
      * @extends Array
      * @param data
      * @constructor
